@@ -6,6 +6,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from './Components/Home';
+import Settings from './Components/Settings';
+import Favorites from './Components/Favorites';
+
 
  const Stack = createStackNavigator();
  function NavStack() {
@@ -23,12 +26,36 @@ import Home from './Components/Home';
  const Tab = createBottomTabNavigator();
  function BottomTab() {
   return(
-      <Tab.Navigator>
+      <Tab.Navigator
+      screenOptions={{
+        tabBarShowLabel: false,
+        tabBarStyle:{
+          position: 'absolute',
+          bottom: 15,
+          left: 15,
+          right: 15,
+          elevation: 0,
+          backgroundColor: '#fff',
+          borderRadius: 15,
+          height: 50,
+        }
+      }}>
         <Tab.Screen
         name='Home'
         component={Home}
         options={{headerShown: false}}
         />
+         <Tab.Screen
+        name='Favorites'
+        component={Favorites}
+        options={{headerShown: false}}
+        />
+        <Tab.Screen
+        name='Settings'
+        component={Settings}
+        options={{headerShown: false}}
+        />
+        
       </Tab.Navigator>
   );
  }

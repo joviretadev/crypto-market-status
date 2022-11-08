@@ -3,7 +3,7 @@ import  { Animated, Image, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 
-import Logo from '../assets/LogoCryptoDownText.png';
+import Logo from '../assets/LogoCryptoNoText.png';
 const BGColor = "#000000"
 
 export default function SplashScreen(props) {
