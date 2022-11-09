@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Image } from 'react-native';
 import SplashScreen from './Components/SplashScreen';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
@@ -43,17 +43,62 @@ import Favorites from './Components/Favorites';
         <Tab.Screen
         name='Home'
         component={Home}
-        options={{headerShown: false}}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({focused}) => (
+            <View style={{alignItems: 'center', justifyContent: 'center'}}>
+              <Image
+              source={require('./assets/icons/iconCrypto.png')}
+              resizeMode ="contain"
+              style={{
+                width: 35,
+                height: 35,
+                tintColor: focused ? '#411e9e' : '#000000',
+              }}
+              />
+            </View>
+          ),
+        }}
         />
          <Tab.Screen
         name='Favorites'
         component={Favorites}
-        options={{headerShown: false}}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({focused}) => (
+            <View>
+              <Image
+              source={require('./assets/icons/iconFavs.png')}
+              resizeMode ="contain"
+              style={{
+                width: 40,
+                height: 40,
+                tintColor: focused ? '#411e9e' : '#000000',
+              }}
+              />
+            </View>
+          ),
+        }}
         />
         <Tab.Screen
         name='Settings'
         component={Settings}
-        options={{headerShown: false}}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({focused}) => (
+            <View>
+              <Image
+              source={require('./assets/icons/iconSetts.png')}
+              resizeMode ="contain"
+              style={{
+                width: 35,
+                height: 35,
+                tintColor: focused ? '#411e9e' : '#000000',
+              }}
+              />
+            </View>
+          ),
+        }}
         />
         
       </Tab.Navigator>

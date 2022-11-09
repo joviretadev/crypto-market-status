@@ -12,13 +12,15 @@ const CoinItem = ({coin}) => {
                     {/*<Text style={styles.coinsName}>{coin.name}</Text>*/}
                     <Text style={styles.coinsSymbol}>{coin.symbol}</Text>
                 </View>
-                <Text style={styles.coinsPrice}>{coin.current_price} US$</Text>
-                <Text style={[styles.coinsPrice24,
-                    coin.price_change_percentage_24h > 0
-                        ? styles.price24Positive
-                        : styles.price24Negative]}>
-                        {coin.price_change_percentage_24h} US$
-                </Text>
+                <View style={styles.priceContainer}>
+                    <Text style={styles.coinsPrice}>{coin.current_price} US$</Text>
+                    <Text style={[styles.coinsPrice24,
+                        coin.price_change_percentage_24h > 0
+                            ? styles.price24Positive
+                            : styles.price24Negative]}>
+                            {coin.price_change_percentage_24h} US$
+                    </Text>
+                </View>
             </View>
            
         </View>
@@ -47,6 +49,8 @@ const styles = StyleSheet.create({
     },
     coinsName: {
         color: '#ffff',
+        marginTop: 5,
+        marginRight: 10,
     },
     coinsSymbol: {
         color: '#ffff',
