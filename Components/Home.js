@@ -1,5 +1,5 @@
-import { Text, View, StyleSheet, FlatList } from 'react-native';
-import React, { useEffect, useState, useMemo, useRef} from 'react';
+import { Text, View, StyleSheet, FlatList, Button } from 'react-native';
+import React, { useEffect, useState, useMemo, useRef, useCallback} from 'react';
 import { StatusBar } from 'expo-status-bar';
 import CoinItem from './CoinItem'
 import BottomSheet from '@gorhom/bottom-sheet';
@@ -25,10 +25,17 @@ export default function Home() {
   const bottomSheetRef = useRef(null);
   //variables BottomSheetModal
   const snapPoints = useMemo(() => ['50%'], []);
-  //function open
-  const openModal = () => {
-    bottomSheetRef.current.present();
+  //function open modal selected coin
+  const openModal = (item) => {
+    setDataCoinSelected(item);
+    bottomSheetRef.current.snapToIndex(item);
   }
+  //function to close modal
+  const handleClosePress = useCallback(() => {
+    bottomSheetRef.current?.close();
+  }, []);
+  //data for Chart
+  const [dataCoinSelected, setDataCoinSelected] = useState(null);
 
     return (
         
@@ -39,18 +46,26 @@ export default function Home() {
             <FlatList
               data = {coins}
               renderItem={({item}) =>{
-                  return <CoinItem coin={item}/>
+                  return <CoinItem coin={item}
+                  onPress={() => openModal(0)}/>
               }}
-              onPress={() => openModal()}
+              
             />
 
             <BottomSheet
               ref={bottomSheetRef}
-              index={0}
+              index={-1}
               snapPoints={snapPoints}
             >
             <View style={styles.contentContainer}>
               <Chart/>
+            </View>
+            <View style={styles.button}>
+            <Button 
+              title="Close" 
+              color="#411e9e"
+              onPress={() => handleClosePress()} 
+            />
             </View>
          </BottomSheet>
         </View>
@@ -64,5 +79,8 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     backgroundColor: BGColor,
+  },
+  button: {
+    top: 50,
   },
 });
