@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
 import SplashScreen from './Components/SplashScreen';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -31,13 +31,13 @@ import Favorites from './Components/Favorites';
         tabBarShowLabel: false,
         tabBarStyle:{
           position: 'absolute',
-          bottom: 15,
+          bottom: 20,
           left: 15,
           right: 15,
           elevation: 0,
           backgroundColor: '#fff',
           borderRadius: 15,
-          height: 50,
+          height: 70,
         }
       }}>
         <Tab.Screen
@@ -54,6 +54,7 @@ import Favorites from './Components/Favorites';
                 width: 35,
                 height: 35,
                 tintColor: focused ? '#411e9e' : '#000000',
+                top: 15,
               }}
               />
             </View>
@@ -74,6 +75,7 @@ import Favorites from './Components/Favorites';
                 width: 40,
                 height: 40,
                 tintColor: focused ? '#411e9e' : '#000000',
+                top: 15,
               }}
               />
             </View>
@@ -94,6 +96,7 @@ import Favorites from './Components/Favorites';
                 width: 35,
                 height: 35,
                 tintColor: focused ? '#411e9e' : '#000000',
+                top: 15,
               }}
               />
             </View>

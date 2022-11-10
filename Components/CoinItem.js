@@ -1,37 +1,37 @@
 import react from "react";
-import { View, Text, StyleSheet, Image } from 'react-native'
+import { View, Text, StyleSheet, Image, TouchableOpacity, SafeAreaView } from 'react-native'
 
-
-
-const CoinItem = ({coin}) => {
+const CoinItem = ({coin, onPress}) => {
     return ( 
-        <View style={styles.container}>
-            <View style={styles.coinsContainer}>
-                <View style={styles.nameContainer}>
-                    <Image style={styles.coinsImage}source={{uri: coin.image}}/>
-                    {/*<Text style={styles.coinsName}>{coin.name}</Text>*/}
-                    <Text style={styles.coinsSymbol}>{coin.symbol}</Text>
+        <SafeAreaView>
+            <TouchableOpacity onPress={onPress}>
+                <View style={styles.container}>
+                    <View style={styles.coinsContainer}>
+                        <View style={styles.nameContainer}>
+                            <Image style={styles.coinsImage}source={{uri: coin.image}}/>
+                            <Text style={styles.coinsName}>{coin.name}</Text>
+                            <Text style={styles.coinsSymbol}>{coin.symbol}</Text>
+                        </View>
+                        <View style={styles.priceContainer}>
+                            <Text style={styles.coinsPrice}>{coin.current_price.toLocaleString('en-US', {currency: 'USD'})} US$</Text>
+                            <Text style={[styles.coinsPrice24,
+                                coin.price_change_percentage_24h > 0
+                                    ? styles.price24Positive
+                                    : styles.price24Negative]}>
+                                    {coin.price_change_percentage_24h.toFixed(2)}%
+                            </Text>
+                        </View>
+                    </View>
                 </View>
-                <View style={styles.priceContainer}>
-                    <Text style={styles.coinsPrice}>{coin.current_price} US$</Text>
-                    <Text style={[styles.coinsPrice24,
-                        coin.price_change_percentage_24h > 0
-                            ? styles.price24Positive
-                            : styles.price24Negative]}>
-                            {coin.price_change_percentage_24h} US$
-                    </Text>
-                </View>
-            </View>
-           
-        </View>
+            </TouchableOpacity>
+        </SafeAreaView>
     )
 }
 
 const styles = StyleSheet.create({
     container:{
-        top: 50,
-        paddinngTop: 10,
-        margin: 10
+        paddingHorizontal: 20,
+        marginTop: 20,
     },
     coinsContainer:{
         paddinngTop: 20,
@@ -49,6 +49,7 @@ const styles = StyleSheet.create({
     },
     coinsName: {
         color: '#ffff',
+        fontWeight: "bold",
         marginTop: 5,
         marginRight: 10,
     },
