@@ -1,5 +1,5 @@
 import { Text, View, StyleSheet, FlatList, Button } from 'react-native';
-import React, { useEffect, useState, useMemo, useRef, useCallback} from 'react';
+import React, { useEffect, useState, useMemo, useRef } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import CoinItem from './CoinItem'
 import BottomSheet from '@gorhom/bottom-sheet';
@@ -28,47 +28,49 @@ export default function Home() {
   //function open modal selected coin
   const openModal = (item) => {
     setDataCoinSelected(item);
-    bottomSheetRef.current.snapToIndex(item);
+    bottomSheetRef.current.snapToIndex(0);
   }
-  //function to close modal
-  const handleClosePress = useCallback(() => {
-    bottomSheetRef.current?.close();
-  }, []);
+
   //data for Chart
   const [dataCoinSelected, setDataCoinSelected] = useState(null);
 
     return (
         
-      <View style={styles.container}>
+            <View style={styles.container}>
 
-            <StatusBar style='light'/>
+              <StatusBar style='light'/>
 
-            <FlatList
-              data = {coins}
-              renderItem={({item}) =>{
-                  return <CoinItem coin={item}
-                  onPress={() => openModal(0)}/>
-              }}
-              
-            />
+              <FlatList
+                data = {coins}
+                renderItem={({item}) =>{
+                    return <CoinItem
+                    coin={item}
+                    onPress={() => openModal(item)}/>
+                }}
+              />
 
-            <BottomSheet
-              ref={bottomSheetRef}
-              index={-1}
-              snapPoints={snapPoints}
-            >
-            <View style={styles.contentContainer}>
-              <Chart/>
+              <BottomSheet
+                ref={bottomSheetRef}
+                index={-1}
+                snapPoints={snapPoints}
+                enablePanDownToClose={true}
+              >
+                <View style={styles.contentContainer}>
+                  { dataCoinSelected ? (
+                    <Chart
+                    name={dataCoinSelected.name}
+                    symbol={dataCoinSelected.symbol}
+                    image={dataCoinSelected.image}
+                    current_price={dataCoinSelected.current_price}
+                    price_change_percentage_24h={dataCoinSelected.price_change_percentage_24h}
+                    />
+                    
+                    )
+                    : null
+                  }
+                </View>
+              </BottomSheet>
             </View>
-            <View style={styles.button}>
-            <Button 
-              title="Close" 
-              color="#411e9e"
-              onPress={() => handleClosePress()} 
-            />
-            </View>
-         </BottomSheet>
-        </View>
     );
 }
 const styles = StyleSheet.create({
@@ -80,7 +82,5 @@ const styles = StyleSheet.create({
     right: 0,
     backgroundColor: BGColor,
   },
-  button: {
-    top: 50,
-  },
+  
 });
