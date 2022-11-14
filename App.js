@@ -54,7 +54,6 @@ import Favorites from './Components/Favorites';
                 width: 35,
                 height: 35,
                 tintColor: focused ? '#411e9e' : '#000000',
-                top: 15,
               }}
               />
             </View>
@@ -75,7 +74,6 @@ import Favorites from './Components/Favorites';
                 width: 40,
                 height: 40,
                 tintColor: focused ? '#411e9e' : '#000000',
-                top: 15,
               }}
               />
             </View>
@@ -96,7 +94,6 @@ import Favorites from './Components/Favorites';
                 width: 35,
                 height: 35,
                 tintColor: focused ? '#411e9e' : '#000000',
-                top: 15,
               }}
               />
             </View>

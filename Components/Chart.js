@@ -5,10 +5,10 @@ const Chart = ({name, symbol,image,current_price,price_change_percentage_24h}) =
   //console.log(image);
   //console.log(symbol);
   return (
-    <View>
+    <View style={styles.container}>
       <Image style={styles.image}source={{uri: image}}/>
       <Text>{name}</Text>
-      <Text>{symbol}</Text>
+      <Text style={styles.symbol}>{symbol}</Text>
       <Text style={styles.hours}>24h</Text>
       <View>
         <Text>{current_price.toLocaleString('en-US', {currency: 'USD'})} US$</Text>
@@ -25,9 +25,15 @@ const Chart = ({name, symbol,image,current_price,price_change_percentage_24h}) =
 }
 
 const styles = StyleSheet.create({
+  container:{
+    paddingHorizontal: 20,
+  },
   image:{
     width: 40,
     height: 40,
+  },
+  symbol:{
+    textTransform: 'uppercase',
   },
   hours:{
     textAlign: 'right',
