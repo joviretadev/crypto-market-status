@@ -1,9 +1,10 @@
-import { Text, View, StyleSheet, FlatList, Button } from 'react-native';
+import { Text, View, StyleSheet, FlatList, SafeAreaView } from 'react-native';
 import React, { useEffect, useState, useMemo, useRef } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import CoinItem from './CoinItem'
 import BottomSheet from '@gorhom/bottom-sheet';
 import Chart from './Chart.js'
+import { getCoinsData } from '../Services/ChartService';
 
 const BGColor = "#000000"
 
@@ -12,10 +13,11 @@ export default function Home() {
     const [coins, setCoins] = useState([])
 
     const loadData = async() => {
+      //https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=true&price_change_percentage=7d
         const response = await fetch("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc");
         const data = await response.json()
         setCoins(data)
-        console.log(data);
+        //console.log(data);
     }
     useEffect(() =>{
        loadData();
@@ -24,7 +26,7 @@ export default function Home() {
   //ref a BottomSheetModal
   const bottomSheetRef = useRef(null);
   //variables BottomSheetModal
-  const snapPoints = useMemo(() => ['50%'], []);
+  const snapPoints = useMemo(() => ['70%'], []);
   //function open modal selected coin
   const openModal = (item) => {
     setDataCoinSelected(item);
@@ -32,23 +34,33 @@ export default function Home() {
   }
 
   //data for Chart
+  const [data, setData] = useState([]);
   const [dataCoinSelected, setDataCoinSelected] = useState(null);
+
+  useEffect(() => {
+    const fetchMarketData = async () => {
+      const marketData = await getCoinsData();
+      setData(marketData);
+    }
+
+    fetchMarketData();
+  }, [])
 
     return (
         
-            <View style={styles.container}>
+            <SafeAreaView style={styles.container}>
 
               <StatusBar style='light'/>
 
               <FlatList
-                data = {coins}
+                data = {data}
                 renderItem={({item}) =>{
                     return <CoinItem
                     coin={item}
                     onPress={() => openModal(item)}/>
                 }}
               />
-
+              
               <BottomSheet
                 ref={bottomSheetRef}
                 index={-1}
@@ -63,6 +75,7 @@ export default function Home() {
                     image={dataCoinSelected.image}
                     current_price={dataCoinSelected.current_price}
                     price_change_percentage_24h={dataCoinSelected.price_change_percentage_24h}
+                    sparkline={dataCoinSelected.sparkline_in_7d.price}
                     />
                     
                     )
@@ -70,7 +83,7 @@ export default function Home() {
                   }
                 </View>
               </BottomSheet>
-            </View>
+            </SafeAreaView>
     );
 }
 const styles = StyleSheet.create({
