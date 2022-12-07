@@ -43,7 +43,7 @@ const Chart = ({name, symbol,image,current_price,price_change_percentage_24h,spa
       </View>
           
           <View style={styles.chart}>
-            <ChartPath height={SIZE / 2} stroke="black" width={SIZE} />
+            <ChartPath height={SIZE / 3} stroke="black" width={SIZE} />
             <ChartDot style={{ backgroundColor: 'black' }} />
           </View>
         </View>

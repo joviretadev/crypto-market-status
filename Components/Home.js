@@ -50,7 +50,7 @@ export default function Home() {
     return (
         
             <SafeAreaView style={styles.container}>
-            <GestureHandlerRootView style={{flex: 1}}>  
+              <GestureHandlerRootView style={{flex: 1}}>  
                 <StatusBar style='light'/>
 
                 <FlatList
